@@ -25,6 +25,8 @@ import java.util.UUID;
 /**
  * <p>
  * 消息事件处理
+ *  @OnEvent 监听客户端发送信息
+ *  sendEvent 向客户端发送信息
  * </p>
  *
  * @package: com.xkcoding.websocket.socketio.handler
@@ -96,7 +98,7 @@ public class MessageEventHandler {
     public void onJoinEvent(SocketIOClient client, AckRequest request, JoinRequest data) {
         log.info("用户：{} 已加入群聊：{}", data.getUserId(), data.getGroupId());
         client.joinRoom(data.getGroupId());
-
+        //向群里的所有客户端里发送信息
         server.getRoomOperations(data.getGroupId()).sendEvent(Event.JOIN, data);
     }
 
